@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📘 الملخص البصري الكامل - تخطيط وتنظيم العمل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #eef2f7; padding: 20px; direction: rtl; }
+        .book { max-width: 1100px; margin: auto; background: white; border-radius: 24px; padding: 30px 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+
+        /* ===== رأس الصفحة ===== */
+        .top-header {
+            background: linear-gradient(135deg, #1a3a5c 0%, #2c5a7a 100%);
+            border-radius: 18px;
+            padding: 30px 35px;
+            margin-bottom: 25px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 6px 24px rgba(26,58,92,0.25);
+        }
+        .top-header .main-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .top-header .main-title i { color: #7fc9ff; margin-left: 12px; }
+        .top-header .sub-info {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+        .top-header .sub-info i { margin: 0 6px; color: #7fc9ff; }
+        .top-header .credit {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            font-size: 0.95rem;
+        }
+        .top-header .credit strong { color: #ffd700; }
+
+        /* ===== باقي التنسيق ===== */
+        .page-break { border-top: 2px dashed #d0dae6; margin: 35px 0 30px; }
+        .section-title { font-size: 1.4rem; color: #1a3a5c; margin: 30px 0 16px; padding-right: 14px; border-right: 5px solid #4A90E2; }
+        .section-title i { color: #4A90E2; margin-left: 10px; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+        .card { background: #f8faff; border-radius: 16px; padding: 18px 20px; border: 1px solid #e0e8f0; }
+        .card h4 { color: #1a3a5c; margin-bottom: 6px; }
+        .card p { color: #4a6a8a; font-size: 0.92rem; line-height: 1.7; }
+        .card ul { list-style: none; padding: 0; margin-top: 6px; }
+        .card ul li { padding: 3px 0; font-size: 0.88rem; color: #3a5a7a; border-bottom: 1px dashed #e8edf4; }
+        .card ul li i { color: #4A90E2; width: 20px; margin-left: 6px; font-size: 0.75rem; }
+        .icon-circle { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; margin-bottom: 10px; }
+        .color-blue { background: #4A90E2; }
+        .color-green { background: #27AE60; }
+        .color-orange { background: #F39C12; }
+        .color-red { background: #E74C3C; }
+        .color-purple { background: #8E44AD; }
+        .color-teal { background: #1ABC9C; }
+        .highlight-box { background: #f0f7ff; border-radius: 12px; padding: 16px 20px; border-right: 4px solid #4A90E2; margin: 12px 0; }
+        .highlight-box strong { color: #1a3a5c; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 650px) { .two-col { grid-template-columns: 1fr; } .book { padding: 20px; } .top-header .main-title { font-size: 1.4rem; } }
+        .mindmap { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 15px; }
+        .mindmap .root { background: #1a3a5c; color: white; padding: 14px 40px; border-radius: 40px; font-size: 1.4rem; font-weight: 700; box-shadow: 0 4px 16px rgba(26,58,92,0.3); }
+        .mindmap .root i { margin-left: 12px; }
+        .mindmap .branches { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 12px; width: 100%; }
+        .mindmap .branch { flex: 1; min-width: 160px; max-width: 220px; background: #f8faff; border-radius: 16px; padding: 14px 12px; text-align: center; border-top: 4px solid #4A90E2; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+        .mindmap .branch .b-title { font-weight: 700; color: #1a3a5c; font-size: 0.95rem; margin-bottom: 6px; }
+        .mindmap .branch .b-title i { margin-left: 6px; }
+        .mindmap .branch .items { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+        .mindmap .branch .items span { background: white; padding: 3px 10px; border-radius: 16px; font-size: 0.7rem; color: #2a4a6a; border: 1px solid #e0e8f0; }
+        .branch-1 { border-top-color: #4A90E2; }
+        .branch-2 { border-top-color: #27AE60; }
+        .branch-3 { border-top-color: #F39C12; }
+        .branch-4 { border-top-color: #E74C3C; }
+        .connector { color: #b0c4d8; font-size: 1.6rem; margin: 2px 0; }
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+        .review-item { background: #f8faff; border-radius: 12px; padding: 12px 16px; border: 1px solid #e0e8f0; text-align: center; font-size: 0.9rem; color: #1a3a5c; }
+        .review-item i { color: #4A90E2; margin-left: 6px; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e8f0;
+            text-align: center;
+            color: #5a7a9a;
+            font-size: 0.9rem;
+            direction: ltr;
+        }
+        .footer a {
+            color: #4A90E2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .footer a:hover {
+            color: #1a3a5c;
+            text-decoration: underline;
+        }
+        .footer .heart {
+            color: #E74C3C;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .book { box-shadow: none; border-radius: 0; padding: 20px; }
+            .page-break { border-top: 2px solid #ccc; }
+            .top-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .footer a { color: #4A90E2 !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="book">
+
+    <!-- ======================== رأس الصفحة ======================== -->
+    <div class="top-header">
+        <div class="main-title">
+            <i class="fas fa-pencil-alt"></i> ملخص دورة "تخطيط وتنظيم العمل"
+        </div>
+        <div class="sub-info">
+            <i class="fas fa-university"></i> معهد الإدارة العامة
+            <i class="fas fa-circle" style="font-size: 0.3rem; vertical-align: middle;"></i>
+            <i class="fas fa-chalkboard-teacher"></i> إعداد: د. محمد الزعبي
+        </div>
+        <div class="credit">
+            <i class="fas fa-info-circle"></i> هذا الملخص مُعدّ لمساعدة المشاركين على مراجعة مادة الدورة
+            <strong>بصرياً وبشكل منظم</strong>، ويغطي جميع المحاور الأساسية.
+        </div>
+    </div>
+
+    <!-- ======================== صفحة 1 ======================== -->
+    <div style="text-align:center; padding: 30px 0 20px;">
+        <div style="background:#1a3a5c; color:white; padding:6px 24px; border-radius:40px; display:inline-block; font-size:0.85rem;">
+            <i class="fas fa-tint"></i> معهد الإدارة العامة
+        </div>
+        <h1 style="margin-top:15px; font-size:2rem; color:#1a3a5c;"><i class="fas fa-pencil-alt" style="color:#4A90E2;"></i> تخطيط وتنظيم العمل</h1>
+        <div style="color:#5a7a9a; font-size:1.1rem;">📘 ملخص بصري شامل – 20 صفحة</div>
+        <div style="margin-top:15px; color:#888; font-size:0.9rem;">
+            <i class="fas fa-calendar-alt"></i> 2026 &nbsp;|&nbsp; <i class="fas fa-user-graduate"></i> نسخة دراسية
+        </div>
+    </div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 2-3 ======================== -->
+    <div class="section-title"><i class="fas fa-chess-queen"></i> صفحة 2–3: مفهوم الإدارة</div>
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon-circle color-blue"><i class="fas fa-bullseye"></i></div>
+            <h4>تعريف الإدارة</h4>
+            <p>هي استخدام الموارد المتاحة (بشرية، مالية، مادية) بفعالية وكفاءة لتحقيق أهداف المنظمة، عبر وظائف: التخطيط، التنظيم، التوجيه، والرقابة.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-green"><i class="fas fa-arrow-right-arrow-left"></i></div>
+            <h4>الكفاءة vs الفاعلية</h4>
+            <ul>
+                <li><i class="fas fa-check-circle" style="color:#27AE60;"></i> <strong>الكفاءة:</strong> فعل الأشياء <u>بشكل صحيح</u> (بأقل موارد)</li>
+                <li><i class="fas fa-check-circle" style="color:#4A90E2;"></i> <strong>الفاعلية:</strong> فعل <u>الأشياء الصحيحة</u> (التي تقود للهدف)</li>
+            </ul>
+            <div class="highlight-box" style="margin-top:8px;"><i class="fas fa-lightbulb" style="color:#F39C12;"></i> <strong>الخلاصة:</strong> النجاح = كفاءة + فاعلية معاً</div>
+        </div>
+    </div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 4-5 ======================== -->
+    <div class="section-title"><i class="fas fa-layer-group"></i> صفحة 4–5: مستويات الإدارة والمديرين</div>
+    <div class="two-col">
+        <div class="card">
+            <div class="icon-circle color-orange"><i class="fas fa-arrow-up"></i></div>
+            <h4>المستويات الإدارية</h4>
+            <ul>
+                <li><i class="fas fa-crown" style="color:#F39C12;"></i> <strong>استراتيجي:</strong> رؤية وقرارات كبرى</li>
+                <li><i class="fas fa-arrows-alt-h" style="color:#4A90E2;"></i> <strong>تكتيكي/فني:</strong> تنسيق وربط</li>
+                <li><i class="fas fa-tools" style="color:#27AE60;"></i> <strong>تشغيلي:</strong> تنفيذ يومي مباشر</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-purple"><i class="fas fa-user-tie"></i></div>
+            <h4>تصنيف المديرين</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> <strong>مديرين عليا:</strong> قرارات شاملة</li>
+                <li><i class="fas fa-check"></i> <strong>مديرين وسط:</strong> يشرفون على المباشرين</li>
+                <li><i class="fas fa-check"></i> <strong>مديرين مباشرين:</strong> يشرفون على العاملين</li>
+            </ul>
+        </div>
+    </div>
+    <div class="highlight-box"><i class="fas fa-info-circle" style="color:#4A90E2;"></i> <strong>معلومة امتحانية:</strong> كلما ارتفع المستوى الإداري زاد التركيز على المهارات الإدراكية والتحليلية، وقلت المهارات الفنية.</div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 6-7 ======================== -->
+    <div class="section-title"><i class="fas fa-sitemap"></i> صفحة 6–7: تنظيم العمل ومبادئه</div>
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon-circle color-blue"><i class="fas fa-tasks"></i></div>
+            <h4>تعريف تنظيم العمل</h4>
+            <p>تحديد الأنشطة والمهام والأدوار اللازمة لتحقيق الأهداف، وإسنادها للأفراد وفق مهاراتهم، مع تحديد السلطات والمسؤوليات.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-green"><i class="fas fa-balance-scale"></i></div>
+            <h4>أهمية التنظيم</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> يقسم العمل ويحدد الاختصاصات</li>
+                <li><i class="fas fa-check"></i> يسهل الاتصال وينقل القرارات</li>
+                <li><i class="fas fa-check"></i> ينظم العلاقات بين الرؤساء والمرؤوسين</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-grid" style="margin-top:14px;">
+        <div class="card">
+            <div class="icon-circle color-orange"><i class="fas fa-list"></i></div>
+            <h4>مبادئ التنظيم الأساسية</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> <strong>وحدة القيادة:</strong> كل مرؤوس يتلقى أوامر من رئيس واحد</li>
+                <li><i class="fas fa-check"></i> <strong>توازن السلطة والمسؤولية:</strong> السلطة = الحق في الأمر، المسؤولية = المحاسبة</li>
+                <li><i class="fas fa-check"></i> <strong>نطاق الإشراف:</strong> عدد العاملين تحت إدارة مدير واحد</li>
+                <li><i class="fas fa-check"></i> <strong>المركزية/اللامركزية:</strong> توزيع أو تركيز سلطة اتخاذ القرار</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-purple"><i class="fas fa-route"></i></div>
+            <h4>خطوات التنظيم (5 خطوات)</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> 1- احترام الخطط والأهداف</li>
+                <li><i class="fas fa-check"></i> 2- تحديد الأنشطة الضرورية</li>
+                <li><i class="fas fa-check"></i> 3- تصنيف الأنشطة</li>
+                <li><i class="fas fa-check"></i> 4- تفويض العمل والسلطات</li>
+                <li><i class="fas fa-check"></i> 5- تصميم الهيكل التنظيمي</li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 8-9 ======================== -->
+    <div class="section-title"><i class="fas fa-clock"></i> صفحة 8–9: إدارة الوقت</div>
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon-circle color-blue"><i class="fas fa-hourglass-half"></i></div>
+            <h4>مفهوم إدارة الوقت</h4>
+            <p>الاستخدام الأفضل للوقت والإمكانات المتاحة بالطريقة التي تؤدي إلى تحقيق الأهداف، عبر الالتزام والتحليل والتخطيط والمتابعة.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-green"><i class="fas fa-seedling"></i></div>
+            <h4>فوائد تنظيم الوقت</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> تحقيق نتائج أفضل</li>
+                <li><i class="fas fa-check"></i> تحسين نوعية العمل</li>
+                <li><i class="fas fa-check"></i> زيادة سرعة العمل</li>
+                <li><i class="fas fa-check"></i> التخفيف من ضغط العمل</li>
+                <li><i class="fas fa-check"></i> تقليل الأخطاء</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-grid" style="margin-top:14px;">
+        <div class="card">
+            <div class="icon-circle color-red"><i class="fas fa-exclamation-triangle"></i></div>
+            <h4>مضيعات الوقت</h4>
+            <ul>
+                <li><i class="fas fa-times"></i> ضعف التخطيط</li>
+                <li><i class="fas fa-times"></i> التسويف والمماطلة</li>
+                <li><i class="fas fa-times"></i> المقاطعات (هاتف، زوار)</li>
+                <li><i class="fas fa-times"></i> عدم القدرة على قول "لا"</li>
+                <li><i class="fas fa-times"></i> الفوضى وعدم التنظيم</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-orange"><i class="fas fa-chart-pie"></i></div>
+            <h4>قاعدة 80/20</h4>
+            <p>80% من النتائج تأتي من 20% من الجهود. ركز على الـ 20% الأكثر تأثيراً.</p>
+            <div class="highlight-box" style="margin-top:8px;"><i class="fas fa-lightbulb" style="color:#F39C12;"></i> استثمر الأوقات الهامشية والضائعة</div>
+        </div>
+    </div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 10-11 ======================== -->
+    <div class="section-title"><i class="fas fa-sort-amount-up"></i> صفحة 10–11: الأولويات والتفويض</div>
+    <div class="two-col">
+        <div class="card">
+            <div class="icon-circle color-blue"><i class="fas fa-list"></i></div>
+            <h4>تحديد الأولويات</h4>
+            <p><strong>تعريف:</strong> ترتيب الأعمال حسب الأهمية، وتقديم الأهم على المهم.</p>
+            <ul>
+                <li><i class="fas fa-check" style="color:#E74C3C;"></i> <strong>مربع 1 (عاجل + مهم):</strong> أَنْجِز فوراً</li>
+                <li><i class="fas fa-check" style="color:#F39C12;"></i> <strong>مربع 2 (غير عاجل + مهم):</strong> خَطِّط له</li>
+                <li><i class="fas fa-check" style="color:#4A90E2;"></i> <strong>مربع 3 (عاجل + غير مهم):</strong> فَوِّض</li>
+                <li><i class="fas fa-check" style="color:#888;"></i> <strong>مربع 4 (غير عاجل + غير مهم):</strong> اُتْرُك</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-green"><i class="fas fa-handshake"></i></div>
+            <h4>التفويض</h4>
+            <p><strong>تعريف:</strong> نقل جزء من السلطة أو الحق في اتخاذ القرار من الرئيس إلى المرؤوس.</p>
+            <ul>
+                <li><i class="fas fa-check"></i> <strong>فوائده:</strong> يطور الموظفين، يبني الثقة، يسرع الإنجاز</li>
+                <li><i class="fas fa-check" style="color:#27AE60;"></i> <strong>يُفوض:</strong> مهام تشغيلية، متابعة، تقارير</li>
+                <li><i class="fas fa-times" style="color:#E74C3C;"></i> <strong>لا يُفوض:</strong> مسؤولية نهائية، قرارات سيادية</li>
+            </ul>
+        </div>
+    </div>
+    <div class="highlight-box"><i class="fas fa-info-circle" style="color:#4A90E2;"></i> <strong>أنواع الموظفين حسب التفويض:</strong> مبتدئ ← متعلم ← متقدم ← خبير، ولكل أسلوب تفويض مناسب (مراقب، موجه، مستشار، منسق).</div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 12-13 ======================== -->
+    <div class="section-title"><i class="fas fa-route"></i> صفحة 12–13: التخطيط</div>
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon-circle color-blue"><i class="fas fa-bullseye"></i></div>
+            <h4>مفهوم التخطيط</h4>
+            <p>التفكير المسبق في المستقبل، واختيار وربط المعرفة والحقائق والافتراضات لتحقيق النتائج المرجوة. وهو أساس العمل الإداري.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-green"><i class="fas fa-chart-pie"></i></div>
+            <h4>أنواع التخطيط</h4>
+            <ul>
+                <li><i class="fas fa-crown" style="color:#F39C12;"></i> <strong>استراتيجي:</strong> طويل المدى (3-5 سنوات)</li>
+                <li><i class="fas fa-arrows-alt-h" style="color:#4A90E2;"></i> <strong>تكتيكي:</strong> متوسط المدى (1-3 سنوات)</li>
+                <li><i class="fas fa-tools" style="color:#27AE60;"></i> <strong>تشغيلي:</strong> قصير المدى (أقل من سنة)</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-grid" style="margin-top:14px;">
+        <div class="card">
+            <div class="icon-circle color-orange"><i class="fas fa-table"></i></div>
+            <h4>نموذج SWOT</h4>
+            <ul>
+                <li><i class="fas fa-plus-circle" style="color:#27AE60;"></i> <strong>S</strong> = Strengths (نقاط القوة)</li>
+                <li><i class="fas fa-minus-circle" style="color:#E74C3C;"></i> <strong>W</strong> = Weaknesses (نقاط الضعف)</li>
+                <li><i class="fas fa-arrow-up" style="color:#F39C12;"></i> <strong>O</strong> = Opportunities (الفرص)</li>
+                <li><i class="fas fa-arrow-down" style="color:#E74C3C;"></i> <strong>T</strong> = Threats (التهديدات)</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-purple"><i class="fas fa-check-double"></i></div>
+            <h4>فوائد التخطيط</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> تلافي المشكلات والارتجال</li>
+                <li><i class="fas fa-check"></i> رفع كفاءة المجموعات العاملة</li>
+                <li><i class="fas fa-check"></i> إضفاء صفة التنظيم والجدية</li>
+                <li><i class="fas fa-check"></i> تحسين التنسيق والإنتاجية</li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 14-15 ======================== -->
+    <div class="section-title"><i class="fas fa-bullseye"></i> صفحة 14–15: الأهداف الذكية SMART</div>
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon-circle color-blue"><i class="fas fa-check-circle"></i></div>
+            <h4>S = محدد (Specific)</h4>
+            <p>الهدف واضح ومحدد، يعرف الجميع ماذا يريدون تحقيقه.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-green"><i class="fas fa-ruler"></i></div>
+            <h4>M = قابل للقياس (Measurable)</h4>
+            <p>يمكن قياس التقدم نحو الهدف بأرقام أو مؤشرات واضحة.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-orange"><i class="fas fa-hand"></i></div>
+            <h4>A = قابل للتحقيق (Achievable)</h4>
+            <p>الهدف ممكن تحقيقه بالإمكانات والموارد المتاحة.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-red"><i class="fas fa-check"></i></div>
+            <h4>R = واقعي (Realistic)</h4>
+            <p>الهدف منسجم مع الواقع والظروف المحيطة.</p>
+        </div>
+        <div class="card" style="grid-column: span 2;">
+            <div class="icon-circle color-purple"><i class="fas fa-clock"></i></div>
+            <h4>T = محدد بزمن (Time-bound)</h4>
+            <p>للهدف إطار زمني محدد للبداية والنهاية.</p>
+            <div class="highlight-box" style="margin-top:8px;"><i class="fas fa-lightbulb" style="color:#F39C12;"></i> <strong>مثال:</strong> "إجراء 3 دورات تدريبية لـ 25 موظف في نهاية 2023" ← هذا هدف SMART كامل</div>
+        </div>
+    </div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 16-17 ======================== -->
+    <div class="section-title"><i class="fas fa-chart-line"></i> صفحة 16–17: مؤشرات الأداء KPIs</div>
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon-circle color-blue"><i class="fas fa-gauge-high"></i></div>
+            <h4>مفهوم KPIs</h4>
+            <p>أدوات لقياس مدى التقدم نحو الهدف، وكشف مواطن الخلل، وتمكين الإدارة من اتخاذ إجراءات تصحيحية في الوقت المناسب.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-green"><i class="fas fa-ruler"></i></div>
+            <h4>أنواع المؤشرات</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> <strong>كمية:</strong> أرقام مباشرة (مبيعات، إنتاج، عدد الفحوصات)</li>
+                <li><i class="fas fa-check"></i> <strong>نوعية:</strong> آراء وانطباعات (رضا العملاء، جودة الخدمة)</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-grid" style="margin-top:14px;">
+        <div class="card">
+            <div class="icon-circle color-orange"><i class="fas fa-check-double"></i></div>
+            <h4>مواصفات المؤشر الجيد</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> دقيق (Accurate)</li>
+                <li><i class="fas fa-check"></i> قابل للقياس (Measurable)</li>
+                <li><i class="fas fa-check"></i> معلوماته متوفرة (Available)</li>
+                <li><i class="fas fa-check"></i> مرتبط بالهدف (Relevant)</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-purple"><i class="fas fa-id-card"></i></div>
+            <h4>بطاقة المؤشر</h4>
+            <p>تحتوي على: الهدف، المؤشر، القيمة الأساسية، القيمة المستهدفة، تكرار القياس، مسؤولية القياس، ومصدر المعلومات.</p>
+            <div class="highlight-box" style="margin-top:8px;"><i class="fas fa-lightbulb" style="color:#F39C12;"></i> <strong>مثال:</strong> هامش ربح النمو = مؤشر مالي</div>
+        </div>
+    </div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 18-19 ======================== -->
+    <div class="section-title"><i class="fas fa-list-check"></i> صفحة 18–19: الخطة التشغيلية</div>
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon-circle color-blue"><i class="fas fa-file-signature"></i></div>
+            <h4>مفهوم الخطة التشغيلية</h4>
+            <p>خطة تفصيلية تتضمن جميع الأنشطة والإجراءات المتعلقة بتنفيذ مبادرات الخطة الاستراتيجية، مع التوقيتات الزمنية والجهات المسؤولة.</p>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-green"><i class="fas fa-cubes"></i></div>
+            <h4>مكونات الخطة التشغيلية</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> الخطوات والإجراءات المطلوبة</li>
+                <li><i class="fas fa-check"></i> الأشخاص المسؤولون عن التنفيذ</li>
+                <li><i class="fas fa-check"></i> البرنامج الزمني للتنفيذ</li>
+                <li><i class="fas fa-check"></i> الموارد المخصصة</li>
+                <li><i class="fas fa-check"></i> آلية التنفيذ والمتابعة</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-grid" style="margin-top:14px;">
+        <div class="card">
+            <div class="icon-circle color-orange"><i class="fas fa-flag-checkered"></i></div>
+            <h4>الهدف من الخطة التشغيلية</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> تحديد ما يجب تنفيذه لتحقيق الأهداف الاستراتيجية</li>
+                <li><i class="fas fa-check"></i> اختبار مدى صلاحية الخطة الاستراتيجية للتنفيذ</li>
+                <li><i class="fas fa-check"></i> وضع أسس واقعية لتحديد القدرات والموارد</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="icon-circle color-red"><i class="fas fa-clipboard-list"></i></div>
+            <h4>مصفوفة الأهداف والمبادرات</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> البعد الاستراتيجي</li>
+                <li><i class="fas fa-check"></i> الهدف الاستراتيجي والتفصيلي</li>
+                <li><i class="fas fa-check"></i> المبادرات والأنشطة</li>
+                <li><i class="fas fa-check"></i> مسؤولية التنفيذ</li>
+                <li><i class="fas fa-check"></i> فترة التنفيذ ومؤشرات القياس</li>
+            </ul>
+        </div>
+    </div>
+    <div class="highlight-box"><i class="fas fa-info-circle" style="color:#4A90E2;"></i> <strong>عوامل نجاح الخطة التشغيلية:</strong> دعم القيادات، التوازن في مؤشرات الأداء، مشاركة جميع الأطراف، الواقعية في الإعداد، التوثيق المنتظم.</div>
+    <div class="page-break"></div>
+
+    <!-- ======================== صفحة 20: خريطة ذهنية + مراجعة ======================== -->
+    <div class="section-title"><i class="fas fa-brain"></i> صفحة 20: الخريطة الذهنية الشاملة + مراجعة نهائية</div>
+
+    <!-- الخريطة الذهنية -->
+    <div class="mindmap">
+        <div class="root"><i class="fas fa-crown"></i> الإدارة</div>
+        <div class="connector">⬇️</div>
+        <div class="branches">
+            <div class="branch branch-1">
+                <div class="b-title"><i class="fas fa-route" style="color:#4A90E2;"></i> التخطيط</div>
+                <div class="items"><span>أهداف</span><span>استراتيجيات</span><span>خطة تشغيلية</span><span>SMART</span><span>SWOT</span></div>
+            </div>
+            <div class="branch branch-2">
+                <div class="b-title"><i class="fas fa-sitemap" style="color:#27AE60;"></i> التنظيم</div>
+                <div class="items"><span>تقسيم العمل</span><span>السلطة والمسؤولية</span><span>الهيكل التنظيمي</span><span>وحدة القيادة</span></div>
+            </div>
+            <div class="branch branch-3">
+                <div class="b-title"><i class="fas fa-clock" style="color:#F39C12;"></i> الوقت والأولويات</div>
+                <div class="items"><span>ترتيب المهام</span><span>مضيعات الوقت</span><span>التفويض</span><span>مصفوفة الأولويات</span></div>
+            </div>
+            <div class="branch branch-4">
+                <div class="b-title"><i class="fas fa-chart-line" style="color:#E74C3C;"></i> الأداء</div>
+                <div class="items"><span>KPIs</span><span>متابعة وتصحيح</span><span>مؤشرات كمية/نوعية</span><span>بطاقة المؤشر</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مراجعة نهائية -->
+    <div style="margin-top:30px;">
+        <h4 style="color:#1a3a5c; text-align:center; margin-bottom:12px;"><i class="fas fa-star" style="color:#F39C12;"></i> أسئلة متوقعة للمراجعة</h4>
+        <div class="review-grid">
+            <div class="review-item"><i class="fas fa-question-circle"></i> ما الفرق بين الكفاءة والفاعلية؟</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> اذكر مستويات الإدارة</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> ما هو تنظيم العمل؟</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> اذكر مبادئ التنظيم</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> ما هي مضيعات الوقت؟</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> اشرح مصفوفة الأولويات</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> ما هو التفويض وما لا يُفوض؟</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> ما هو التخطيط وأنواعه؟</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> اشرح معايير SMART</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> ما هي مؤشرات KPIs؟</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> ما هي الخطة التشغيلية؟</div>
+            <div class="review-item"><i class="fas fa-question-circle"></i> اذكر مكونات الخطة التشغيلية</div>
+        </div>
+    </div>
+
+    <div class="page-break" style="margin-top:25px;"></div>
+    <div style="text-align:center; color:#888; font-size:0.85rem; padding:10px 0;">
+        <i class="fas fa-check-circle" style="color:#27AE60;"></i> نهاية الملخص – 20 صفحة – بالتوفيق في الامتحان! 📚✨
+    </div>
+
+    <!-- ======================== FOOTER ======================== -->
+    <div class="footer">
+        <span style="float:right; direction:rtl;">
+            <i class="fas fa-graduation-cap"></i> ملخص دورة "تخطيط وتنظيم العمل" – إعداد د. محمد الزعبي
+        </span>
+        <span style="float:left; direction:ltr;">
+            <a href="https://scientific-dashboard.alamrow.com" target="_blank">
+                scientific-dashboard.alamrow.com
+            </a>
+            <span class="heart">❤️</span> ©2026 Eng. Odeh Alamrow
+        </span>
+        <div style="clear:both;"></div>
+    </div>
+
+</div><!-- /book -->
+</body>
+</html>
